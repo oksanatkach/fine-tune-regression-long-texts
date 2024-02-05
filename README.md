@@ -1,14 +1,14 @@
-##Fine-tuning regression on arbitrarily long texts
+## Fine-tuning regression on arbitrarily long texts
 
 Data: https://www.cs.cornell.edu/people/pabo/movie-review-data/
 
 Target task: prediction of movie rating via regression to the scale of 0.0-1.0 (the same that is used in dataset, but continuous)
 
-###Problem:
+### Problem:
 
 Normally, transformers accept no more than 512 tokens on the input, including the beginning and end of text markers. Some of the texts in our dataset have number of tokens approaching 3K.
 
-###Possible solutions
+### Possible solutions
 
 1. Truncate the input size
 2. Use a model with a larger maximum sequence length
@@ -24,7 +24,7 @@ https://towardsdatascience.com/how-to-apply-transformers-to-any-length-of-text-a
 
 Good chunking solution, but only for inference, not fine-tuning.
 
-####Main problem I ran into:
+#### Main problem I ran into:
 
 I couldn't figure out how to batch the different length input first with mapping the dataset for tokenizing, and then with torch's DataLoader: data instances couldn't be stacked into a batch tensor due to a variable amount of chunks. Found this resource offering a solution:
 
